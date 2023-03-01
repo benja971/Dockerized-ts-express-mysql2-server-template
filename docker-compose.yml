@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+    mysql:
+        container_name: flop_mysql
+        image: mysql
+        restart: unless-stopped
+        # env_file: ./.env
+        environment:
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - '3306:3306'
+        volumes:
+            - flopbox:/var/lib/mysql
+
+    api:
+        container_name: flop_api
+        depends_on:
+            - mysql
+
+        build:
+            dockerfile: dockerfile
+            context: .
+
+        # env_file: ./.env
+        volumes:
+            - .:/app
+        ports:
+            - '${PORT}:${PORT}'
+
+        command: npm run start
+
+volumes:
+    flopbox:
