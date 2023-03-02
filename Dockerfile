@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:18.11.0
 
 WORKDIR /code
 
@@ -16,4 +16,4 @@ RUN pnpm install
 
 COPY . .
 
-CMD ["pnpm", "run", "start"]
+CMD ["pnpm", "run", "dev"]

@@ -1,16 +1,21 @@
-import { Sequelize, Dialect } from 'sequelize';
-import { join } from 'path';
-import * as dotenv from 'dotenv';
+import sequelize from './Sequelize';
+import User from './User';
 
-// https://docs.w3cub.com/sequelize/manual/typescript - Sequelize with TypeScript
+sequelize
+	.authenticate()
+	.then(() => {
+		console.log('Connection has been established successfully.');
+	})
+	.catch(err => {
+		console.error('Unable to connect to the database:', err);
+	});
 
-dotenv.config({ path: join(__dirname, '..', '..', '.env') });
+sequelize.sync({ force: true }).then(() => {
+	console.log('Database & tables created!');
 
-export const sequelize = new Sequelize({
-	dialect: process.env.DB_DIALECT as Dialect,
-	host: process.env.DB_HOST as string,
-	port: Number(process.env.DB_PORT),
-	username: process.env.DB_USERNAME as string,
-	password: process.env.DB_PASSWORD as string,
-	database: process.env.DB_NAME as string,
+	// Table created
+	return User.create({
+		name: 'John',
+		preferredName: 'Johnny',
+	});
 });

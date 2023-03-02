@@ -5,8 +5,7 @@ import { router } from './router';
 import compression from 'compression';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
-
-console.clear();
+import './models/';
 
 dotenv.config({ path: join(__dirname, '..', '.env') });
 const app: Application = express();

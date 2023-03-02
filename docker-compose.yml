@@ -20,7 +20,7 @@ services:
             - mysql
 
         build:
-            dockerfile: dockerfile
+            dockerfile: Dockerfile
             context: .
 
         # env_file: ./.env
@@ -28,8 +28,6 @@ services:
             - .:/app
         ports:
             - '${PORT}:${PORT}'
-
-        command: npm run start
 
 volumes:
     flopbox:
